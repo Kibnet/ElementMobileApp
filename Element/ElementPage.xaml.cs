@@ -7,6 +7,7 @@ namespace Element
 		public ElementPage()
 		{
 			InitializeComponent();
+			BindingContext = new ElementViewModel();
 		}
 	}
 }
