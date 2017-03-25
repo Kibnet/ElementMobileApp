@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Element" x:Class="Element.ElementPage">
+	<StackLayout>
+		<Label Text="Element" FontSize="36" HorizontalTextAlignment="Center"/>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Button Text="Lock" Grid.Column="0"/>
+			<Button Text="Unlock" Grid.Column="1"/>
+		</Grid>
+		<Grid Margin="10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+		<Label Text="Guard Mode" VerticalTextAlignment="Center"/>
+		<Switch IsToggled="{Binding GuardMode}" Grid.Column="1"/>
+		</Grid>
+		<Grid Margin="10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+		<Label Text="Service Mode" VerticalTextAlignment="Center"/>
+		<Switch IsToggled="{Binding ServiceMode}" Grid.Column="1"/>
+		</Grid>
+	</StackLayout>
+</ContentPage>
