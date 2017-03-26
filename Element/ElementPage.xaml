@@ -2,21 +2,21 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Element" x:Class="Element.ElementPage" Title="Element" IsBusy="{Binding IsBusy}">
 	<StackLayout>
 		<Label Text="Element" FontSize="36" HorizontalTextAlignment="Center" />
-		<StackLayout x:Name="LoginPart" IsVisible="{Binding ShowLogin}" Margin="20">
+		<StackLayout IsVisible="{Binding ShowLogin}" Margin="20">
 			<Label Text="Login" />
 			<Entry Text="{Binding Login}" />
 			<Label Text="Password" />
 			<Entry Text="{Binding Password}" IsPassword="true" />
 			<Button Text="Sign In" Command="{Binding SignIn}" />
 		</StackLayout>
-		<StackLayout x:Name="ControlPart" IsVisible="{Binding ShowControl}" Margin="20">
+		<StackLayout IsVisible="{Binding ShowControl}" Margin="20">
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
 					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
-				<Button Text="Lock" Command="{Binding Lock}" Grid.Column="0" />
-				<Button Text="Unlock" Command="{Binding Unlock}" Grid.Column="1" />
+				<Button Text="Lock" Command="{Binding Lock}" Grid.Column="0" IsEnabled="{Binding CanLock}"/>
+				<Button Text="Unlock" Command="{Binding Unlock}" Grid.Column="1" IsEnabled="{Binding CanUnlock}"/>
 			</Grid>
 			<Grid Margin="0,10">
 				<Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 				<Label Text="Guard Mode" VerticalTextAlignment="Center" />
-				<Switch Grid.Column="1" />
+				<Switch Grid.Column="1" IsToggled="{Binding GuardMode}" IsEnabled="{Binding CanGuard}"/>
 			</Grid>
 			<Grid Margin="0,10">
 				<Grid.ColumnDefinitions>
@@ -32,7 +32,7 @@
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 				<Label Text="Service Mode" VerticalTextAlignment="Center" />
-				<Switch Grid.Column="1" />
+				<Switch Grid.Column="1" IsToggled="{Binding ServiceMode}" IsEnabled="{Binding CanService}"/>
 			</Grid>
 			<Button Text="Sign Out" Command="{Binding SignOut}" />
 		</StackLayout>
