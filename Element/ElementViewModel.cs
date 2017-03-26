@@ -1,9 +1,6 @@
 ﻿using System;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
-using System.Threading;
 using System.Threading.Tasks;
 namespace Element
 {
@@ -18,7 +15,7 @@ namespace Element
 					IsBusy = true;
 					//TODO Login from REST
 					await Task.Delay(2000);
-					token = "token";
+					Token = "token";
 					Status = $"Sign in by {Login}";
 				}
 				catch (Exception e)
@@ -29,23 +26,26 @@ namespace Element
 				{
 					IsBusy = false;
 				}
-			}, this.WhenAny(m => m.Login, m => m.Password, m => m.token, (log, pas, tok) => string.IsNullOrWhiteSpace(log.Value) == false && string.IsNullOrWhiteSpace(pas.Value)==false && tok.Value == null));
+			}, this.WhenAny(m => m.Login, m => m.Password, m => m.Token, 
+			                (log, pas, tok) => string.IsNullOrWhiteSpace(log.Value) == false && 
+			                string.IsNullOrWhiteSpace(pas.Value) == false && 
+			                tok.Value == null));
 
 			SignOut = ReactiveCommand.CreateFromTask(async () =>
 			{
 				//TODO Confirm from user
-				var confirm = await Application.Current.MainPage.DisplayActionSheet("Are you sure you want log out?", null, null, new string[]{"Yes","No"});
+				var confirm = await Application.Current.MainPage.DisplayActionSheet("Are you sure you want log out?", null, null, new string[] { "Yes", "No" });
 				if (confirm == "Yes")
 				{
 					await Task.Delay(1000);
-					token = null;
+					Token = null;
 					Status = $"Sign out by {Login}";
 				}
-			}, this.WhenAny(m => m.token, (tok) => tok.Value != null));
+			}, this.WhenAny(m => m.Token, (tok) => tok.Value != null));
 
-			this.ObservableForProperty(m => m.token).Subscribe((obj) =>
+			this.ObservableForProperty(m => m.Token).Subscribe((obj) =>
 			  {
-				  if (token != null)
+				  if (Token != null)
 				  {
 					  Password = null;
 					  ShowLogin = false;
@@ -78,7 +78,7 @@ namespace Element
 				  await Task.Delay(2000);
 				  var result = obj.Value;
 				  Status = $"Service mode is {(result ? "On" : "Off")}";
-				CanService = true;
+				  CanService = true;
 				  IsBusy = false;
 			  });
 
@@ -91,7 +91,7 @@ namespace Element
 				Status = "Locked";
 				CanLock = true;
 				IsBusy = false;
-			});
+			}, this.WhenAny(m=>m.CanLock, (arg) => arg.Value == true));
 
 			Unlock = ReactiveCommand.Create(async () =>
 			{
@@ -102,56 +102,192 @@ namespace Element
 				Status = "Unlocked";
 				CanUnlock = true;
 				IsBusy = false;
-			});
+			}, this.WhenAny(m => m.CanUnlock, (arg) => arg.Value == true));
 		}
 
-		[Reactive]
-		public string Status { get; set; }
+		string status;
+
+		public string Status
+		{
+			get
+			{
+				return status;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref status, value);
+			}
+		}
 
 		public ReactiveCommand Lock { get; set; }
 
 		public ReactiveCommand Unlock { get; set; }
 
+		bool canLock = true;
 
-		[Reactive]
-		public bool CanLock { get; set; } = true;
+		public bool CanLock
+		{
+			get { return canLock; }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref canLock, value);
+			}
+		}
 
-		[Reactive]
-		public bool CanUnlock { get; set; } = true;
+		bool canUnlock = true;
 
-		[Reactive]
-		public bool GuardMode { get; set; }
+		public bool CanUnlock
+		{
+			get { return canUnlock; }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref canUnlock, value);
+			}
+		}
 
-		[Reactive]
-		public bool CanGuard { get; set; } = true;
+		bool guardMode;
 
-		[Reactive]
-		public bool ServiceMode { get; set; }
-		[Reactive]
-		public bool CanService { get; set; } = true;
+		public bool GuardMode
+		{
+			get
+			{
+				return guardMode;
+			}
 
-		[Reactive]
-		public bool IsBusy { get; set; } = false;
+			set
+			{
 
+				this.RaiseAndSetIfChanged(ref guardMode, value);
+			}
+		}
 
-		[Reactive]
-		private string token { get; set; }
+		bool canGuard = true;
+
+		public bool CanGuard
+		{
+			get { return canGuard; }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref canGuard, value);
+			}
+		}
+
+		bool serviceMode;
+
+		public bool ServiceMode
+		{
+			get
+			{
+				return serviceMode;
+			}
+
+			set
+			{
+
+				this.RaiseAndSetIfChanged(ref serviceMode, value);
+			}
+		}
+
+		bool canService = true;
+
+		public bool CanService
+		{
+			get { return canService; }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref canService, value);
+			}
+		}
+
+		bool isBusy = false;
+
+		public bool IsBusy
+		{
+			get { return isBusy; }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref isBusy, value);
+			}
+		}
+
+		string token;
+
+		public string Token
+		{
+			get
+			{
+				return token;
+			}
+
+			set
+			{
+
+				this.RaiseAndSetIfChanged(ref token, value);
+			}
+		}
 
 		public ReactiveCommand SignIn { get; set; }
 
 		public ReactiveCommand SignOut { get; set; }
 
-		[Reactive]
-		public string Login { get; set; }
+		string login;
 
-		[Reactive]
-		public string Password { get; set; }
+		public string Login
+		{
+			get
+			{
+				return login;
+			}
 
-		[Reactive]
-		public bool ShowLogin { get; set; } = true;
+			set
+			{
 
-		[Reactive]
-		public bool ShowControl { get; set; }
+				this.RaiseAndSetIfChanged(ref login, value);
+			}
+		}
 
+		string password;
+
+		public string Password
+		{
+			get
+			{
+				return password;
+			}
+
+			set
+			{
+
+				this.RaiseAndSetIfChanged(ref password, value);
+			}
+		}
+
+		bool showLogin = true;
+
+		public bool ShowLogin
+		{
+			get { return showLogin; }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref showLogin, value);
+			}
+		}
+
+		bool showControl;
+
+		public bool ShowControl
+		{
+			get
+			{
+				return showControl;
+			}
+
+			set
+			{
+
+				this.RaiseAndSetIfChanged(ref showControl, value);
+			}
+		}
 	}
 }

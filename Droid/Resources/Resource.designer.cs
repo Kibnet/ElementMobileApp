@@ -26,7 +26,6 @@ namespace Element.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::ReactiveUI.Fody.Helpers.Resource.String.library_name = global::Element.Droid.Resource.String.library_name;
 			global::Splat.Resource.String.library_name = global::Element.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Element.Droid.Resource.Attribute.actionBarSize;
 		}
