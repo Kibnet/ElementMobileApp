@@ -282,11 +282,22 @@ namespace Element
 			{
 				return showControl;
 			}
-
 			set
 			{
-
 				this.RaiseAndSetIfChanged(ref showControl, value);
+			}
+		}
+		double fuelLevel = 0.5;
+
+		public double FuelLevel
+		{
+			get
+			{
+				return fuelLevel;
+			}
+			set
+			{
+				this.RaiseAndSetIfChanged(ref fuelLevel, value);
 			}
 		}
 	}

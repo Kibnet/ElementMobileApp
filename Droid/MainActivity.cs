@@ -7,6 +7,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Acr.UserDialogs;
+using Xamarin.Forms;
 
 namespace Element.Droid
 {
@@ -21,7 +23,7 @@ namespace Element.Droid
 			base.OnCreate(bundle);
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
-
+			UserDialogs.Init(() => (Activity)Forms.Context);
 			LoadApplication(new App());
 		}
 	}
