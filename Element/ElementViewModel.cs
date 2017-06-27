@@ -2,13 +2,23 @@
 using ReactiveUI;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using Element.Classes;
+using Mapsui.Utilities;
+using Mapsui.Layers;
+using Mapsui.Providers;
+using Mapsui.Geometries;
+using System.Collections.Generic;
+using System.Diagnostics;
+using Mapsui.Styles;
+
 namespace Element
 {
 	public class ElementViewModel : ReactiveObject
 	{
 		public ElementViewModel()
 		{
-			SignIn = ReactiveCommand.CreateFromTask(async () =>
+
+            SignIn = ReactiveCommand.CreateFromTask(async () =>
 			{
 				try
 				{
@@ -50,12 +60,14 @@ namespace Element
 					  Password = null;
 					  ShowLogin = false;
 					  ShowControl = true;
+                      ShowMap = true;
 				  }
 				  else
 				  {
 					  ShowControl = false;
 					  ShowLogin = true;
-				  }
+                      ShowMap = false;
+                  }
 			  });
 
 			this.ObservableForProperty(m => m.GuardMode).Subscribe(async (obj) =>
@@ -103,9 +115,12 @@ namespace Element
 				CanUnlock = true;
 				IsBusy = false;
 			}, this.WhenAny(m => m.CanUnlock, (arg) => arg.Value == true));
-		}
 
-		string status;
+        }
+
+        
+
+        string status;
 
 		public string Status
 		{
@@ -300,5 +315,16 @@ namespace Element
 				this.RaiseAndSetIfChanged(ref fuelLevel, value);
 			}
 		}
-	}
+
+
+        bool showMap;
+        public bool ShowMap
+        { get
+            { return showMap; }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref showMap, value);
+            }
+        }
+    }
 }

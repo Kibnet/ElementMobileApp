@@ -26,5 +26,7 @@ namespace Element.Droid
 			UserDialogs.Init(() => (Activity)Forms.Context);
 			LoadApplication(new App());
 		}
+
+
 	}
 }
