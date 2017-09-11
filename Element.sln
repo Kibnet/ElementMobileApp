@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Element", "Element\Element.csproj", "{9EC7E02C-9691-4697-9FF2-A30E05B40066}"
 EndProject
@@ -72,6 +72,7 @@ Global
 		{A30F25A0-D9A9-475D-814F-0533AD237843}.Release|x86.ActiveCfg = Release|iPhoneSimulator
 		{24511408-30AF-47E9-886B-2A3E0E3E36DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{24511408-30AF-47E9-886B-2A3E0E3E36DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24511408-30AF-47E9-886B-2A3E0E3E36DA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{24511408-30AF-47E9-886B-2A3E0E3E36DA}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{24511408-30AF-47E9-886B-2A3E0E3E36DA}.Debug|ARM.Build.0 = Debug|Any CPU
 		{24511408-30AF-47E9-886B-2A3E0E3E36DA}.Debug|ARM.Deploy.0 = Debug|Any CPU
